@@ -62,7 +62,7 @@ export default function Home() {
               disabled={status === "loading"}
               className="px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-neutral-800 transition-colors disabled:opacity-50"
             >
-              {status === "loading" ? "..." : "Join"}
+              {status === "loading" ? "..." : "Join Waitlist"}
             </button>
           </form>
         )}
