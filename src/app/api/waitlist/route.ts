@@ -1,16 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const WAITLIST_FILE = path.join(process.cwd(), "waitlist.json");
-
-function getEmails(): string[] {
-  try {
-    return JSON.parse(fs.readFileSync(WAITLIST_FILE, "utf-8"));
-  } catch {
-    return [];
-  }
-}
+import { kv } from "@vercel/kv";
 
 export async function POST(request: NextRequest) {
   const { email } = await request.json();
@@ -20,19 +9,16 @@ export async function POST(request: NextRequest) {
   }
 
   const normalized = email.trim().toLowerCase();
-  const emails = getEmails();
+  const added = await kv.sadd("waitlist", normalized);
 
-  if (emails.includes(normalized)) {
+  if (added === 0) {
     return NextResponse.json({ error: "Already on the waitlist." }, { status: 409 });
   }
 
-  emails.push(normalized);
-  fs.writeFileSync(WAITLIST_FILE, JSON.stringify(emails, null, 2));
-
-  return NextResponse.json({ ok: true, count: emails.length });
+  return NextResponse.json({ ok: true });
 }
 
 export async function GET() {
-  const emails = getEmails();
+  const emails = await kv.smembers("waitlist");
   return NextResponse.json({ count: emails.length, emails });
 }

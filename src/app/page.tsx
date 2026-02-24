@@ -20,7 +20,7 @@ export default function Home() {
       });
       const data = await res.json();
 
-      if (res.ok) {
+      if (res.ok || res.status === 409) {
         setStatus("success");
         setMessage("You're on the list.");
         setEmail("");
