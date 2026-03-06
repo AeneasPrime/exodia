@@ -1,16 +1,113 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Berkeley Mono";
+  src: url("/fonts/BerkeleyMonoTrial-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Haffer XH Mono";
+  src: url("/fonts/HafferXHMono-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #111111;
+  --background: #0A0A0A;
+  --foreground: #F1F0EA;
+  --muted: #737373;
+  --accent: #C8FF00;
+  --border: #1F1F1F;
+  --surface: #111111;
+  --surface-2: #1A1A1A;
+}
+
+[data-theme="light"] {
+  --background: #FAFAF8;
+  --foreground: #0A0A0A;
+  --muted: #6B6B6B;
+  --accent: #4A6600;
+  --border: #E0E0DC;
+  --surface: #F0F0EC;
+  --surface-2: #E6E6E2;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --font-mono: "Berkeley Mono", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: "Berkeley Mono", ui-monospace, monospace;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: #0A0A0A;
+}
+
+[data-theme="light"] ::selection {
+  background: #C8FF00;
+  color: #0A0A0A;
+}
+
+/* Animations */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.35s; }
+.delay-4 { animation-delay: 0.5s; }
+.delay-5 { animation-delay: 0.65s; }
+
+.reveal {
+  opacity: 0;
+}
+.reveal.visible {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Navbar */
+.navbar-blur {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Horizontal rule */
+.rule {
+  height: 1px;
+  background: var(--border);
 }

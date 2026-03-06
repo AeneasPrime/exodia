@@ -12,8 +12,22 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Coming Soon",
-  description: "A smarter way for municipal clerks to manage agendas, dockets, and meeting records.",
+  title: "Exodia — The Operating System for the Modern Municipal Clerk",
+  description:
+    "Exodia helps municipal clerks manage agendas, dockets, meeting minutes, and ordinance tracking in one streamlined platform.",
+  openGraph: {
+    title: "Exodia — The Operating System for the Modern Municipal Clerk",
+    description:
+      "Streamline your clerk operations. Manage agendas, dockets, minutes, and ordinances in one place.",
+    url: "https://exodia.co",
+    siteName: "Exodia",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Exodia",
+    description: "The operating system for the modern municipal clerk.",
+  },
 };
 
 export default function RootLayout({
